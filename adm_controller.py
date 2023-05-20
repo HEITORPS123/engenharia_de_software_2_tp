@@ -1,10 +1,10 @@
-class UsuariosController:
+class AdmController:
     def __init__(self):
         self.a = 0
 
     def criar_usuario(self, usuario, conn):
-        sql = ''' INSERT INTO usuario(login,senha,permissoes)
-              VALUES(?,?,?) '''
+        sql = ''' INSERT INTO usuarios
+              VALUES(?,?,?,?) '''
         cur = conn.cursor()
         cur.execute(sql, usuario)
         conn.commit()

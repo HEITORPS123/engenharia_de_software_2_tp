@@ -8,10 +8,10 @@ def executar_comando_bd(conn, comando):
     except Error as e:
         print(e)
 
-def criar_conexao(db_file):
+def criar_conexao(caminho):
     conn = None
     try:
-        conn = sqlite3.connect(db_file)
+        conn = sqlite3.connect(caminho)
         print("Conexao com banco de dados criada com sucesso!")
     except Error as e:
         print(e)
