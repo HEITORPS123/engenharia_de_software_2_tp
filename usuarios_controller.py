@@ -3,8 +3,8 @@ class UsuariosController:
         self.a = 0
 
     def criar_usuario(self, usuario, conn):
-        sql = ''' INSERT INTO usuario(login,senha)
-              VALUES(?,?) '''
+        sql = ''' INSERT INTO usuario(login,senha,permissoes)
+              VALUES(?,?,?) '''
         cur = conn.cursor()
         cur.execute(sql, usuario)
         conn.commit()
@@ -20,7 +20,8 @@ class UsuariosController:
     def editar_usuario(self, usuario,conn):
         sql = ''' UPDATE usuarios
               SET login = ? ,
-                  senha = ?
+                  senha = ? ,
+                  permissoes = ?
               WHERE id = ?'''
         cur = conn.cursor()
         cur.execute(sql, usuario)

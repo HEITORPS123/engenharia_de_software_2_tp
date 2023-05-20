@@ -17,7 +17,7 @@ def criar_conexao(db_file):
         print(e)
     return conn
 
-def criar_tabelas():
+def criar_tabelas(conn):
     sql_criar_tabela_livros = """ CREATE TABLE IF NOT EXISTS livros (
                                         id integer PRIMARY KEY,
                                         nome text NOT NULL,
@@ -31,11 +31,37 @@ def criar_tabelas():
                                     permissoes integer
                                 );"""
     
-    executar_comando_bd(sql_criar_tabela_livros)
+    sql_criar_tabela_multas = """CREATE TABLE IF NOT EXISTS multas (
+                                    id integer PRIMARY KEY,
+                                    id_usuario integer,
+                                    valor float NOT NULL,
+                                    status text NOT NULL,
+                                    FOREIGN KEY (id_usuario)
+                                        REFERENCES usuarios (id) 
+                                );"""
+    
+    sql_criar_tabela_alugueis = """CREATE TABLE IF NOT EXISTS usuarios (
+                                    id integer PRIMARY KEY,
+                                    data text NOT NULL,
+                                    vencimento text NOT NULL,
+                                    status text NOT NULL,
+                                    id_usuario integer,
+                                    id_livro integer,
+                                    FOREIGN KEY (id_usuario)
+                                        REFERENCES usuarios (id),
+                                    FOREIGN KEY (id_usuario)
+                                        REFERENCES usuarios (id) 
+                                );"""
+    
+    executar_comando_bd(conn, sql_criar_tabela_livros)
     print("Tabela de livros carregada com sucesso!")
-    executar_comando_bd(sql_criar_tabela_usuarios)
+    executar_comando_bd(conn, sql_criar_tabela_usuarios)
     print("Tabela de usuarios carregada com sucesso!")
+    #executar_comando_bd(sql_criar_tabela_multas)
+    #print("Tabela de multas carregada com sucesso!")
+    #executar_comando_bd(sql_criar_tabela_alugueis)
+    #print("Tabela de alugueis carregada com sucesso!")
 
 if __name__ == '__main__':
-    criar_conexao("/home/heitor/Desktop/pythonsqlite.db")
-    criar_tabelas()
+    conn = criar_conexao("/home/heitor/Desktop/engenharia_de_software_2_tp/biblioteca.db")
+    criar_tabelas(conn)
