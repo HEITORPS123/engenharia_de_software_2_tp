@@ -3,8 +3,8 @@ class UsuariosController:
         self.a = 0
 
     def criar_usuario(self, usuario, conn):
-        sql = ''' INSERT INTO usuario(login,senha)
-              VALUES(?,?) '''
+        sql = ''' INSERT INTO usuarios
+              VALUES(?,?,?,?) '''
         cur = conn.cursor()
         cur.execute(sql, usuario)
         conn.commit()
