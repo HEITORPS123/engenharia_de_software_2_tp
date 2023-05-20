@@ -8,16 +8,18 @@ def executar_comando_bd(conn, comando):
     except Error as e:
         print(e)
 
-def criar_conexao(db_file):
+def criar_conexao():
+    f = open("./pythonsqlite.db", "w")
+    f.close()
     conn = None
     try:
-        conn = sqlite3.connect(db_file)
+        conn = sqlite3.connect("./pythonsqlite.db")
         print("Conexao com banco de dados criada com sucesso!")
     except Error as e:
         print(e)
     return conn
 
-def criar_tabelas():
+def criar_tabelas(conn):
     sql_criar_tabela_livros = """ CREATE TABLE IF NOT EXISTS livros (
                                         id integer PRIMARY KEY,
                                         nome text NOT NULL,
@@ -31,11 +33,11 @@ def criar_tabelas():
                                     permissoes integer
                                 );"""
     
-    executar_comando_bd(sql_criar_tabela_livros)
+    executar_comando_bd(conn, sql_criar_tabela_livros)
     print("Tabela de livros carregada com sucesso!")
-    executar_comando_bd(sql_criar_tabela_usuarios)
+    executar_comando_bd(conn, sql_criar_tabela_usuarios)
     print("Tabela de usuarios carregada com sucesso!")
 
 if __name__ == '__main__':
-    criar_conexao("/home/heitor/Desktop/pythonsqlite.db")
-    criar_tabelas()
+    conn = criar_conexao()
+    criar_tabelas(conn)
