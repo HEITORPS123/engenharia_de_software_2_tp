@@ -40,9 +40,9 @@ def criar_tabelas(conn):
                                         REFERENCES usuarios (id) 
                                 );"""
     
-    sql_criar_tabela_alugueis = """CREATE TABLE IF NOT EXISTS usuarios (
+    sql_criar_tabela_alugueis = """CREATE TABLE IF NOT EXISTS alugueis (
                                     id integer PRIMARY KEY,
-                                    data text NOT NULL,
+                                    data DATETIME DEFAULT CURRENT_TIMESTAMP,
                                     vencimento text NOT NULL,
                                     status text NOT NULL,
                                     id_usuario integer,
@@ -59,9 +59,9 @@ def criar_tabelas(conn):
     print("Tabela de usuarios carregada com sucesso!")
     #executar_comando_bd(sql_criar_tabela_multas)
     #print("Tabela de multas carregada com sucesso!")
-    #executar_comando_bd(sql_criar_tabela_alugueis)
-    #print("Tabela de alugueis carregada com sucesso!")
+    executar_comando_bd(conn, sql_criar_tabela_alugueis)
+    print("Tabela de alugueis carregada com sucesso!")
 
 if __name__ == '__main__':
-    conn = criar_conexao("/home/heitor/Desktop/engenharia_de_software_2_tp/biblioteca.db")
+    conn = criar_conexao("./biblioteca.db")
     criar_tabelas(conn)
