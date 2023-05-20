@@ -3,8 +3,8 @@ class LivrosController:
         self.a = 0
 
     def criar_livro(self, livro, conn):
-        sql = ''' INSERT INTO livro(nome,descricao)
-              VALUES(?,?) '''
+        sql = ''' INSERT INTO livros(id,nome,descricao)
+              VALUES(?,?,?) '''
         cur = conn.cursor()
         cur.execute(sql, livro)
         conn.commit()
@@ -30,5 +30,12 @@ class LivrosController:
         cur = conn.cursor()
         cur.execute("SELECT * FROM livros")
 
+        rows = cur.fetchall()
+        return rows
+
+    def pesquisar_livro(self, nome_livro, conn):
+        sql = 'SELECT * FROM livros WHERE nome=?'
+        cur = conn.cursor()
+        cur.execute(sql, [nome_livro])
         rows = cur.fetchall()
         return rows
