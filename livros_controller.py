@@ -39,3 +39,14 @@ class LivrosController:
         cur.execute(sql, [nome_livro])
         rows = cur.fetchall()
         return rows
+
+    def get_livro_info(self, nome_livro, conn):
+        livro = self.pesquisar_livro(nome_livro, conn)
+        id = livro[0][0]
+        nome = livro[0][1]
+        descricao = livro[0][2]
+
+        print(f"Id: {id}")
+        print(f"Nome: {nome}")
+        print(f"Descrição: {descricao}")
+        return (id, nome, descricao)
