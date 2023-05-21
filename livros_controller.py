@@ -24,6 +24,7 @@ class LivrosController:
               WHERE id = ?'''
         cur = self.conn.cursor()
         cur.execute(sql, livro)
+        self.conn.commit()
         return 0
     
     def listar_livros(self):

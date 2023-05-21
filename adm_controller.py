@@ -46,9 +46,10 @@ class AdmController:
                 id_livro = input("Id do livro: ")
                 self.livros_controller.excluir_livro(id_livro)
             elif auxEscolha == 3:
+                id_livro = input("Id do livro: ")
                 nome = input("Nome: ")
                 descricao = input("Descricao: ")
-                self.livros_controller.editar_livro((nome, descricao))
+                self.livros_controller.editar_livro((nome, descricao, id_livro))
             elif auxEscolha == 0:
                 self.run()
             else:
@@ -69,7 +70,7 @@ class AdmController:
                 id_usr = input("Id do usuario: ")
                 self.excluir_usuario(id_usr, self.conn)
             elif auxEscolha == 3:
-                id_usr = int(input("Id do usuario: "))
+                id_usr = input("Id do usuario: ")
                 login = input("Login: ")
                 senha = input("Senha: ")
                 permissao = input("Permissao: ")
@@ -123,6 +124,7 @@ class AdmController:
               WHERE id = ?'''
         cur = conn.cursor()
         cur.execute(sql, usuario)
+        conn.commit()
         return 0
 
     def listar_usuarios(self):
