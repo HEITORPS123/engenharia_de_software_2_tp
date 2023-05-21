@@ -2,45 +2,45 @@ class LivrosController:
     def __init__(self, conn):
         self.conn = conn
 
-    def criar_livro(self, livro, conn):
-        sql = ''' INSERT INTO livros(id,nome,descricao)
-              VALUES(?,?,?) '''
-        cur = conn.cursor()
+    def criar_livro(self, livro):
+        sql = ''' INSERT INTO livros(nome,descricao)
+              VALUES(?,?) '''
+        cur = self.conn.cursor()
         cur.execute(sql, livro)
-        conn.commit()
+        self.conn.commit()
         return cur.lastrowid
     
-    def excluir_livro(self, id_livro, conn):
+    def excluir_livro(self, id_livro):
         sql = 'DELETE FROM livros WHERE id=?'
-        cur = conn.cursor()
+        cur = self.conn.cursor()
         cur.execute(sql, (id_livro,))
-        conn.commit()
+        self.conn.commit()
         return 0
     
-    def editar_livro(self, livro,conn):
+    def editar_livro(self, livro):
         sql = ''' UPDATE livros
               SET nome = ? ,
                   descricao = ?
               WHERE id = ?'''
-        cur = conn.cursor()
+        cur = self.conn.cursor()
         cur.execute(sql, livro)
         return 0
     
-    def listar_livros(self, conn):
-        cur = conn.cursor()
+    def listar_livros(self):
+        cur = self.conn.cursor()
         cur.execute("SELECT * FROM livros")
 
         rows = cur.fetchall()
         return rows
 
-    def pesquisar_livro(self, nome_livro, conn):
+    def pesquisar_livro(self, nome_livro):
         sql = 'SELECT * FROM livros WHERE nome=?'
-        cur = conn.cursor()
+        cur = self.conn.cursor()
         cur.execute(sql, [nome_livro])
         rows = cur.fetchall()
         return rows
 
-    def get_livro_info(self, nome_livro, conn):
+    def get_livro_info(self, nome_livro):
         livro = self.pesquisar_livro(nome_livro, conn)
         id = livro[0][0]
         nome = livro[0][1]

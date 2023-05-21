@@ -8,6 +8,7 @@ from multa_controller import MultaController
 class AdmController:
     def __init__(self, conn):
         self.conn = conn
+        self.livros_controller = LivrosController(conn)
 
     def login(self):
         
@@ -43,11 +44,11 @@ class AdmController:
                 self.livros_controller.criar_livro((nome, descricao))
             elif auxEscolha == 2:
                 id_livro = input("Id do livro: ")
-                LivrosController.excluir_livro(id_livro, self.conn)
+                self.livros_controller.excluir_livro(id_livro)
             elif auxEscolha == 3:
                 nome = input("Nome: ")
                 descricao = input("Descricao: ")
-                LivrosController.editar_livro((nome, descricao), self.conn)
+                self.livros_controller.editar_livro((nome, descricao))
             elif auxEscolha == 0:
                 self.run()
             else:
@@ -68,10 +69,11 @@ class AdmController:
                 id_usr = input("Id do usuario: ")
                 self.excluir_usuario(id_usr, self.conn)
             elif auxEscolha == 3:
+                id_usr = int(input("Id do usuario: "))
                 login = input("Login: ")
                 senha = input("Senha: ")
                 permissao = input("Permissao: ")
-                self.editar_usuario((login, senha, permissao), self.conn)
+                self.editar_usuario((login, senha, permissao ,id_usr), self.conn)
             elif auxEscolha == 0:
                 self.run()
             else:
