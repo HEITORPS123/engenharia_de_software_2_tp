@@ -1,8 +1,6 @@
 from ast import In
-from aluguel_controller import AlugueisController
 from interface import InterfacePrints
 from livros_controller import LivrosController
-from multa_controller import MultaController
 
 
 class AdmController:
@@ -85,8 +83,11 @@ class AdmController:
 
         elif escolha == 3:
             self.listar_usuarios()
-
+            
         elif escolha == 4:
+            self.listar_livros()
+
+        elif escolha == 5:
             id_aluguel = input("Id do aluguel: ")
             self.alugueis_controller.resolver_aluguel(id_aluguel)
 
@@ -138,6 +139,16 @@ class AdmController:
             print(usuario)
         InterfacePrints.waiting_key_msg()
         return usuarios
+
+    def listar_livros(self):
+        cur = self.conn.cursor()
+        cur.execute("SELECT * FROM livros")
+
+        livros = cur.fetchall()
+        for livro in livros:
+            print(livro)
+        InterfacePrints.waiting_key_msg()
+        return livros
 
     def pesquisar_usuario_por_login(self, conn, login):
         sql = 'SELECT * FROM livros WHERE login=?'

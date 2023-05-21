@@ -1,3 +1,6 @@
+from interface import InterfacePrints
+
+
 class LivrosController:
     def __init__(self, conn):
         self.conn = conn
@@ -39,10 +42,20 @@ class LivrosController:
         cur = self.conn.cursor()
         cur.execute(sql, [nome_livro])
         rows = cur.fetchall()
+        if len(rows) == 0:
+            InterfacePrints.print_no_result()
+            InterfacePrints.waiting_key_msg()
+            return
+        print(rows)
+        InterfacePrints.waiting_key_msg()
         return rows
 
     def get_livro_info(self, nome_livro):
-        livro = self.pesquisar_livro(nome_livro, conn)
+        livro = self.pesquisar_livro(nome_livro)
+        
+        if livro is None:
+            return
+        
         id = livro[0][0]
         nome = livro[0][1]
         descricao = livro[0][2]

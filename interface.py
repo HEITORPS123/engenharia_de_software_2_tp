@@ -24,8 +24,8 @@ class InterfacePrints:
         print('1 - Alugar livros')
         print('2 - Pesquisar livros')
         print('3 - Informacoes do livro')
-        print('4 - Livros alugado')
-        print('5 - Renovar livro')
+        print('4 - Livros alugados')
+        print('5 - Renovar aluguel')
         print('6 - Consultar multas pendentes')
         print('0 - Voltar')
         print("=======================")
@@ -39,8 +39,9 @@ class InterfacePrints:
         print('1 - Alterar Livros')
         print('2 - Alterar Usuarios')
         print('3 - Listar Usuarios')
-        print('4 - Registrar devolucao')
-        print('5 - Quitacao de multa')
+        print('4 - Listar Livros')
+        print('5 - Registrar devolucao')
+        print('6 - Quitacao de multa')
         print('0 - Voltar')
         print("=======================")
         print("Opcao: ", end='')
@@ -59,7 +60,12 @@ class InterfacePrints:
     @staticmethod
     def print_invalid_option():
         print("Opcao invalida.")
-        sleep(1)    
+        sleep(1)
+        
+    @staticmethod
+    def print_no_result():
+        print("Nenhum resultado.")
+        sleep(1)
         
     @ staticmethod
     def print_invalid_login():

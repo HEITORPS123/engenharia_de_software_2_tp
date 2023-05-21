@@ -1,4 +1,5 @@
-from datetime import timedelta
+from datetime import datetime, timedelta
+import datetime
 from time import sleep
 
 from interface import InterfacePrints
@@ -21,13 +22,10 @@ class UserController:
             "SELECT * FROM usuarios WHERE login = ? AND senha = ?", (login, senha))
         user = cursor.fetchone()
         if user is None:
-            return
-        print(user)
-        
-        self.user = user
-        if self.user is None:
             InterfacePrints.print_invalid_login()
             return
+        
+        self.user = user
         print("Login efetuado com sucesso.")
         sleep(1)
         self.run()
@@ -46,29 +44,35 @@ class UserController:
 
     def executar_escolha(self, escolha):
         
+        InterfacePrints._clear()
+        
         if escolha == 1:
-            AlugueisController.criar_aluguel()
+            id_livro = input("Id do livro: ")
+            AlugueisController(self.conn).criar_aluguel((self.user[0], id_livro))
         elif escolha == 2:
             nome = input("Nome do livro: ")
-            LivrosController.pesquisar_livro(nome, self.conn)
+            LivrosController(self.conn).pesquisar_livro(nome)
+            self.run()
         elif escolha == 3:
             nome = input("Nome do livro: ")
-            LivrosController.get_livro_info(nome, self.conn)
+            LivrosController(self.conn).get_livro_info(nome)
         elif escolha == 4:
-            id_usuario = input("Id do usuario: ")
-            # AlugueisController.listar_alugueis_do_usuario(id_usuario, self.conn)
+            id_usuario = self.user[0]
+            AlugueisController(self.conn).listar_alugueis_do_usuario(id_usuario)
         elif escolha == 5:
             id_aluguel = input("Id do aluguel: ")
             self.renovar_aluguel(id_aluguel)
         elif escolha == 6:
-            id_usuario = input("Id do usuario: ")
-            MultaController.listar_multas_por_id(id_usuario, self.conn)
+            id_usuario = self.user[0]
+            MultaController(self.conn).listar_multas_por_id(id_usuario)
         elif escolha == 0:
             InterfacePrints.print_exiting_msg()
             return
         else:
             InterfacePrints.print_invalid_option()
             self.run()
+            
+        self.run()
 
     def listar_multas_pendentes(self, id_usuario):
         multa_controller = MultaController()
@@ -80,11 +84,10 @@ class UserController:
 
         return multas_pendentes
     
-    def renovar_aluguel(self,id_aluguel):
-        aluguel_controller = AlugueisController()
+    def renovar_aluguel(self, id_aluguel):
+        aluguel_controller = AlugueisController(self.conn)
         aluguel = aluguel_controller.listar_aluguel_por_id(id_aluguel)
-        data_vencimento = aluguel[2]
-        print(data_vencimento)
+        print(aluguel[2])
+        data_vencimento = datetime.datetime.strptime(aluguel[2], "%Y-%m-%d %H:%M:%S")
         nova_data = data_vencimento + timedelta(days=7)
-        nova_data = 0
-        aluguel_controller.renovar_aluguel(id_aluguel, nova_data,self.conn)
+        aluguel_controller.renovar_aluguel(id_aluguel, nova_data)
