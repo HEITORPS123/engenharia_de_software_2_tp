@@ -43,7 +43,7 @@ class AlugueisController:
             print("Aluguel vencido!")
             InterfacePrints.waiting_key_msg()
             valorMulta = (data_atual - data_vencimento).days * 2
-            MultaController(self.conn).criar_multa(id_usuario, valorMulta, 'aberta')
+            MultaController(self.conn).criar_multa((id_usuario, valorMulta, 'aberta'))
             return 0
         
         sql = ''' UPDATE alugueis
