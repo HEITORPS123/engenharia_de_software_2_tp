@@ -29,9 +29,25 @@ class AlugueisController:
         cur.execute(sql, ('devolvido',id_aluguel))
         return 0
     
+    def renovar_aluguel(self, id_aluguel, novo_vencimento,conn):
+        sql = ''' UPDATE alugueis
+              SET vencimento = ? ,
+              WHERE id = ?'''
+        cur = conn.cursor()
+
+        cur.execute(sql, (novo_vencimento,id_aluguel))
+        return 0
+    
     def listar_alugueis_do_usuario(self, id_usuario,conn):
         cur = conn.cursor()
         cur.execute("SELECT * FROM alugueis WHERE id_usuario=?", (id_usuario,))
 
         rows = cur.fetchall()
         return rows
+    
+    def listar_aluguel_por_id(self, id_aluguel,conn):
+        cur = conn.cursor()
+        cur.execute("SELECT * FROM alugueis WHERE id=?", (id_aluguel,))
+
+        rows = cur.fetchall()
+        return rows[0]
