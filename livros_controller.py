@@ -1,6 +1,6 @@
 class LivrosController:
-    def __init__(self):
-        self.a = 0
+    def __init__(self, conn):
+        self.conn = conn
 
     def criar_livro(self, livro, conn):
         sql = ''' INSERT INTO livros(id,nome,descricao)

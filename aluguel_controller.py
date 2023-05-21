@@ -47,7 +47,7 @@ class AlugueisController:
     
     def listar_aluguel_por_id(self, id_aluguel,conn):
         cur = conn.cursor()
-        cur.execute("SELECT * FROM alugueis WHERE id=?", (id_aluguel,))
+        cur.execute("SELECT * FROM alugueis WHERE id=?", (id_aluguel))
 
         rows = cur.fetchall()
         return rows[0]

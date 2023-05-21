@@ -26,8 +26,7 @@ class InterfacePrints:
         print('3 - Informacoes do livro')
         print('4 - Livros alugado')
         print('5 - Renovar livro')
-        print('6 - Devolver livro')
-        print('7 - Consultar multas pendentes')
+        print('6 - Consultar multas pendentes')
         print('0 - Voltar')
         print("=======================")
         print("Opcao: ", end='')
@@ -37,10 +36,11 @@ class InterfacePrints:
         InterfacePrints._clear()
         print("=======================")
         print("Administrador\n")
-        print('1 - Livros')
-        print('2 - Usuarios')
-        print('3 - Registrar devolucao')
-        print('4 - Quitacao de multa')
+        print('1 - Alterar Livros')
+        print('2 - Alterar Usuarios')
+        print('3 - Listar Usuarios')
+        print('4 - Registrar devolucao')
+        print('5 - Quitacao de multa')
         print('0 - Voltar')
         print("=======================")
         print("Opcao: ", end='')
@@ -59,11 +59,17 @@ class InterfacePrints:
     @staticmethod
     def print_invalid_option():
         print("Opcao invalida.")
+        sleep(1)    
+        
+    @ staticmethod
+    def print_invalid_login():
+        print("Credenciais invalidas.")
         sleep(1)
 
     @staticmethod
     def waiting_key_msg():
         print("Aperte alguma tecla para continuar...")
+        input()
 
     @staticmethod
     def print_exiting_msg():

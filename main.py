@@ -67,5 +67,5 @@ def criar_tabelas(conn):
 if __name__ == '__main__':
     conn = criar_conexao("./biblioteca.db")
     criar_tabelas(conn)
-    main_controller = MainController()
+    main_controller = MainController(conn)
     main_controller.run()

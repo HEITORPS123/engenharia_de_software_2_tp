@@ -1,11 +1,12 @@
+from time import sleep
 from interface import InterfacePrints
 from user_controller import UserController
 from adm_controller import AdmController
 
 
 class MainController:
-    def __init__(self):
-        pass
+    def __init__(self, conn):
+        self.conn = conn
     
     def run(self):
         InterfacePrints.print_menu()
@@ -25,8 +26,9 @@ class MainController:
 
     def _run_auxiliar(self, choice, options):
         if choice in options.keys():
-            mode_controller = options[choice]()
-            mode_controller.run()
+            mode_controller = options[choice](self.conn)
+            mode_controller.login()
+            self.run()
 
         elif choice == 0:
             InterfacePrints.print_exiting_msg()
@@ -34,3 +36,4 @@ class MainController:
         else:
             InterfacePrints.print_invalid_option()
             self.run()
+            
