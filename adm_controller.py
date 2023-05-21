@@ -9,6 +9,8 @@ class AdmController:
     def __init__(self, conn):
         self.conn = conn
         self.livros_controller = LivrosController(conn)
+        self.alugueis_controller = AlugueisController(conn)
+        self.multa_controller = MultaController(conn)
 
     def login(self):
         
@@ -86,11 +88,11 @@ class AdmController:
 
         elif escolha == 4:
             id_aluguel = input("Id do aluguel: ")
-            # AlugueisController.resolver_aluguel(id_aluguel, self.conn)
+            self.alugueis_controller.resolver_aluguel(id_aluguel)
 
         elif escolha == 5:
-            id_aluguel = input("Id do aluguel: ")
-            # MultaController.resolver_multa(id_aluguel, self.conn)
+            id_multa = input("Id da multa: ")
+            self.multa_controller.resolver_multa(id_multa)
 
         elif escolha == 0:
             InterfacePrints.print_exiting_msg()

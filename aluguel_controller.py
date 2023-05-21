@@ -1,9 +1,9 @@
 class AlugueisController:
-    def __init__(self):
-        self.a = 0
+    def __init__(self, conn):
+        self.conn = conn
 
-    def criar_aluguel(self, aluguel, conn):
-        cur = conn.cursor()
+    def criar_aluguel(self, aluguel):
+        cur = self.conn.cursor()
         # Verificando se essa entrada já não existe na tabela de alugueis
         # aluguel[1] -> id_user
         # aluguel[2] -> id_livro
@@ -17,25 +17,27 @@ class AlugueisController:
               VALUES(datetime('now', 'localtime'),datetime('now', '+7 day', 'localtime'),?,?,?) '''
         
         cur.execute(sql, aluguel)
-        conn.commit()
+        self.conn.commit()
         return cur.lastrowid
     
-    def resolver_aluguel(self, id_aluguel,conn):
+    def resolver_aluguel(self, id_aluguel):
         sql = ''' UPDATE alugueis
-              SET status = ? ,
+              SET status = ? 
               WHERE id = ?'''
-        cur = conn.cursor()
+        cur = self.conn.cursor()
 
         cur.execute(sql, ('devolvido',id_aluguel))
+        self.conn.commit()
         return 0
     
-    def renovar_aluguel(self, id_aluguel, novo_vencimento,conn):
+    def renovar_aluguel(self, id_aluguel, novo_vencimento):
         sql = ''' UPDATE alugueis
               SET vencimento = ? ,
               WHERE id = ?'''
-        cur = conn.cursor()
+        cur = self.conn.cursor()
 
         cur.execute(sql, (novo_vencimento,id_aluguel))
+        self.conn.commit()
         return 0
     
     def listar_alugueis_do_usuario(self, id_usuario,conn):
