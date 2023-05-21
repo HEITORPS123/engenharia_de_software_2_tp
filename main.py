@@ -1,6 +1,8 @@
 import sqlite3
 from sqlite3 import Error
 
+from main_controller import MainController
+
 def executar_comando_bd(conn, comando):
     try:
         c = conn.cursor()
@@ -65,3 +67,5 @@ def criar_tabelas(conn):
 if __name__ == '__main__':
     conn = criar_conexao("./biblioteca.db")
     criar_tabelas(conn)
+    main_controller = MainController()
+    main_controller.run()
