@@ -99,8 +99,8 @@ class AdmController:
         self.run()
 
     def criar_usuario(self, usuario, conn):
-        sql = ''' INSERT INTO usuarios
-              VALUES(?,?,?,?) '''
+        sql = ''' INSERT INTO usuarios(login,senha,permissoes)
+              VALUES(?,?,?) '''
         cur = conn.cursor()
         cur.execute(sql, usuario)
         conn.commit()

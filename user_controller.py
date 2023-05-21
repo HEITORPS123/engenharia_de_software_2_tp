@@ -19,17 +19,18 @@ class UserController:
         cursor = self.conn.cursor()
         cursor.execute(
             "SELECT * FROM usuarios WHERE login = ? AND senha = ?", (login, senha))
-        if cursor.fetchone() is None:
+        user = cursor.fetchone()
+        if user is None:
             return
-        print(cursor.fetchone())
+        print(user)
         
-        self.user = cursor.fetchone()
+        self.user = user
         if self.user is None:
             InterfacePrints.print_invalid_login()
             return
         print("Login efetuado com sucesso.")
         sleep(1)
-        self.run
+        self.run()
         
     def run(self):
 
