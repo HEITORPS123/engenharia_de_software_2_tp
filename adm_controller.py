@@ -1,7 +1,8 @@
 from ast import In
 from interface import InterfacePrints
 from livros_controller import LivrosController
-
+from aluguel_controller import AlugueisController
+from multa_controller import MultaController
 
 class AdmController:
     def __init__(self, conn):

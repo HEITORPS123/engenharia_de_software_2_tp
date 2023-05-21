@@ -33,15 +33,17 @@ class AlugueisController:
         cur = self.conn.cursor()
 
         cur.execute(sql, ('devolvido', id_aluguel))
+        self.conn.commit()
         return 0
     
     def renovar_aluguel(self, id_aluguel, novo_vencimento):
         sql = ''' UPDATE alugueis
-              SET vencimento = ? ,
+              SET vencimento = ? 
               WHERE id = ?'''
         cur = self.conn.cursor()
 
         cur.execute(sql, (novo_vencimento, id_aluguel))
+        self.conn.commit()
         print("Aluguel renovado com sucesso")
         InterfacePrints.waiting_key_msg()
         return 0

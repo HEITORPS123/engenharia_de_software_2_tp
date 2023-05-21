@@ -87,7 +87,6 @@ class UserController:
     def renovar_aluguel(self, id_aluguel):
         aluguel_controller = AlugueisController(self.conn)
         aluguel = aluguel_controller.listar_aluguel_por_id(id_aluguel)
-        print(aluguel[2])
         data_vencimento = datetime.datetime.strptime(aluguel[2], "%Y-%m-%d %H:%M:%S")
         nova_data = data_vencimento + timedelta(days=7)
         aluguel_controller.renovar_aluguel(id_aluguel, nova_data)
