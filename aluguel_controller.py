@@ -1,4 +1,7 @@
+import datetime
+from time import sleep
 from interface import InterfacePrints
+from multa_controller import MultaController
 
 
 class AlugueisController:
@@ -22,15 +25,30 @@ class AlugueisController:
         cur.execute(sql, ('ativo', aluguel[0], aluguel[1]))
         self.conn.commit()
         
-        print("Aluguel realizado com sucesso")
+        print("Aluguel realizado com sucesso!")
+        sleep(1)
         
         return cur.lastrowid
     
-    def resolver_aluguel(self, id_aluguel):
+    def resolver_aluguel(self, id_aluguel, id_usuario):
+        cur = self.conn.cursor()
+        
+        cur.execute("SELECT * FROM alugueis WHERE id = ?", (id_aluguel))
+        aluguel = cur.fetchone()
+        
+        data_vencimento = datetime.datetime.strptime(aluguel[2], "%Y-%m-%d %H:%M:%S")
+        data_atual = datetime.datetime.now()
+        
+        if data_atual > data_vencimento:
+            print("Aluguel vencido!")
+            InterfacePrints.waiting_key_msg()
+            valorMulta = (data_atual - data_vencimento).days * 2
+            MultaController(self.conn).criar_multa(id_usuario, valorMulta, 'aberta')
+            return 0
+        
         sql = ''' UPDATE alugueis
               SET status = ? 
               WHERE id = ?'''
-        cur = self.conn.cursor()
 
         cur.execute(sql, ('devolvido', id_aluguel))
         self.conn.commit()

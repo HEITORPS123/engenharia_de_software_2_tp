@@ -90,7 +90,8 @@ class AdmController:
 
         elif escolha == 5:
             id_aluguel = input("Id do aluguel: ")
-            self.alugueis_controller.resolver_aluguel(id_aluguel)
+            id_usuario = input("Id do usuario: ")
+            self.alugueis_controller.resolver_aluguel(id_aluguel, id_usuario)
 
         elif escolha == 5:
             id_multa = input("Id da multa: ")
