@@ -89,7 +89,6 @@ class UserController:
         
     def op_listar_multas_pendentes(self):
         id_usuario = self.user[0]
-        print(id_usuario)
         MultaController(self.conn).listar_multas_por_id(id_usuario)
 
     def listar_multas_pendentes(self, id_usuario):
