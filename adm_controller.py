@@ -37,50 +37,11 @@ class AdmController:
 
         # Livros
         if escolha == 1:
-            InterfacePrints.print_add_remove_edit()
-            auxEscolha = int(input())
-            if auxEscolha == 1:
-                nome = input("Nome: ")
-                descricao = input("Descricao: ")
-                self.livros_controller.criar_livro((nome, descricao))
-            elif auxEscolha == 2:
-                id_livro = input("Id do livro: ")
-                self.livros_controller.excluir_livro(id_livro)
-            elif auxEscolha == 3:
-                id_livro = input("Id do livro: ")
-                nome = input("Nome: ")
-                descricao = input("Descricao: ")
-                self.livros_controller.editar_livro((nome, descricao, id_livro))
-            elif auxEscolha == 0:
-                self.run()
-            else:
-                InterfacePrints.print_invalid_option()
-                self.run()
+            self.administrar_livros()
 
         # Usuarios
         elif escolha == 2:
-            InterfacePrints.print_add_remove_edit()
-            auxEscolha = int(input())
-            if auxEscolha == 1:
-                login = input("Login: ")
-                senha = input("Senha: ")
-                # input with 0 or 1
-                permissao = input("Permissao: ")
-                self.criar_usuario((login, senha, permissao), self.conn)
-            elif auxEscolha == 2:
-                id_usr = input("Id do usuario: ")
-                self.excluir_usuario(id_usr, self.conn)
-            elif auxEscolha == 3:
-                id_usr = input("Id do usuario: ")
-                login = input("Login: ")
-                senha = input("Senha: ")
-                permissao = input("Permissao: ")
-                self.editar_usuario((login, senha, permissao ,id_usr), self.conn)
-            elif auxEscolha == 0:
-                self.run()
-            else:
-                InterfacePrints.print_invalid_option()
-                self.run()
+            self.administrar_usuarios()
 
         elif escolha == 3:
             self.listar_usuarios()
@@ -105,6 +66,52 @@ class AdmController:
             self.run()
             
         self.run()
+
+    def administrar_livros(self):
+        InterfacePrints.print_add_remove_edit()
+        auxEscolha = int(input())
+        if auxEscolha == 1:
+            nome = input("Nome: ")
+            descricao = input("Descricao: ")
+            self.livros_controller.criar_livro((nome, descricao))
+        elif auxEscolha == 2:
+            id_livro = input("Id do livro: ")
+            self.livros_controller.excluir_livro(id_livro)
+        elif auxEscolha == 3:
+            id_livro = input("Id do livro: ")
+            nome = input("Nome: ")
+            descricao = input("Descricao: ")
+            self.livros_controller.editar_livro((nome, descricao, id_livro))
+        elif auxEscolha == 0:
+            self.run()
+        else:
+            InterfacePrints.print_invalid_option()
+            self.run()
+
+    def administrar_usuarios(self):
+        InterfacePrints.print_add_remove_edit()
+        auxEscolha = int(input())
+        if auxEscolha == 1:
+            login = input("Login: ")
+            senha = input("Senha: ")
+            # input with 0 or 1
+            permissao = input("Permissao: ")
+            self.criar_usuario((login, senha, permissao), self.conn)
+        elif auxEscolha == 2:
+            id_usr = input("Id do usuario: ")
+            self.excluir_usuario(id_usr, self.conn)
+        elif auxEscolha == 3:
+            id_usr = input("Id do usuario: ")
+            login = input("Login: ")
+            senha = input("Senha: ")
+            permissao = input("Permissao: ")
+            self.editar_usuario((login, senha, permissao ,id_usr), self.conn)
+        elif auxEscolha == 0:
+            self.run()
+        else:
+            InterfacePrints.print_invalid_option()
+            self.run()
+
 
     def criar_usuario(self, usuario, conn):
         sql = ''' INSERT INTO usuarios(login,senha,permissoes)
