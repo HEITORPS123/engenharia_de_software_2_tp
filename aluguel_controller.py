@@ -36,15 +36,7 @@ class AlugueisController:
         cur.execute("SELECT * FROM alugueis WHERE id = ?", (id_aluguel))
         aluguel = cur.fetchone()
         
-        data_vencimento = datetime.datetime.strptime(aluguel[2], "%Y-%m-%d %H:%M:%S")
-        data_atual = datetime.datetime.now()
-        
-        if data_atual > data_vencimento:
-            print("Aluguel vencido!")
-            InterfacePrints.waiting_key_msg()
-            valorMulta = (data_atual - data_vencimento).days * 2
-            MultaController(self.conn).criar_multa((id_usuario, valorMulta, 'aberta'))
-            return 0
+        self.checar_se_aluguel_vencido(aluguel, id_usuario)
         
         sql = ''' UPDATE alugueis
               SET status = ? 
@@ -53,6 +45,18 @@ class AlugueisController:
         cur.execute(sql, ('devolvido', id_aluguel))
         self.conn.commit()
         return 0
+    
+    def checar_se_aluguel_vencido(self, aluguel, id_usuario):
+        data_vencimento = datetime.datetime.strptime(aluguel[2], "%Y-%m-%d %H:%M:%S")
+        data_atual = datetime.datetime.now()
+        
+        if data_atual > data_vencimento:
+            print("Aluguel vencido!")
+            InterfacePrints.waiting_key_msg()
+            valorMulta = (data_atual - data_vencimento).days * 2
+            MultaController(self.conn).criar_multa((id_usuario, valorMulta, 'aberta'))
+            return True
+        return False
     
     def renovar_aluguel(self, id_aluguel, novo_vencimento):
         sql = ''' UPDATE alugueis
