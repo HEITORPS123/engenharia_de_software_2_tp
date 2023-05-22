@@ -47,24 +47,17 @@ class UserController:
         InterfacePrints._clear()
         
         if escolha == 1:
-            id_livro = input("Id do livro: ")
-            AlugueisController(self.conn).criar_aluguel((self.user[0], id_livro))
+            self.op_alugar_livro()
         elif escolha == 2:
-            nome = input("Nome do livro: ")
-            LivrosController(self.conn).pesquisar_livro(nome)
-            self.run()
+            self.op_pesquisar_livro()
         elif escolha == 3:
-            nome = input("Nome do livro: ")
-            LivrosController(self.conn).get_livro_info(nome)
+            self.op_informacoes_livro()
         elif escolha == 4:
-            id_usuario = self.user[0]
-            AlugueisController(self.conn).listar_alugueis_do_usuario(id_usuario)
+            self.op_livros_alugados()
         elif escolha == 5:
-            id_aluguel = input("Id do aluguel: ")
-            self.renovar_aluguel(id_aluguel)
+            self.op_renovar_aluguel()
         elif escolha == 6:
-            id_usuario = self.user[0]
-            MultaController(self.conn).listar_multas_por_id(id_usuario)
+            self.op_listar_multas_pendentes()
         elif escolha == 0:
             InterfacePrints.print_exiting_msg()
             return
@@ -73,6 +66,31 @@ class UserController:
             self.run()
             
         self.run()
+        
+    def op_alugar_livro(self):
+        id_livro = input("Id do livro: ")
+        AlugueisController(self.conn).criar_aluguel((self.user[0], id_livro))
+
+    def op_pesquisar_livro(self):
+        nome = input("Nome do livro: ")
+        LivrosController(self.conn).pesquisar_livro(nome)
+    
+    def op_informacoes_livro(self):
+        nome = input("Nome do livro: ")
+        LivrosController(self.conn).get_livro_info(nome)
+        
+    def op_livros_alugados(self):
+        id_usuario = self.user[0]
+        AlugueisController(self.conn).listar_alugueis_do_usuario(id_usuario)
+        
+    def op_renovar_aluguel(self):
+        id_aluguel = input("Id do aluguel: ")
+        self.renovar_aluguel(id_aluguel)
+        
+    def op_listar_multas_pendentes(self):
+        id_usuario = self.user[0]
+        print(id_usuario)
+        MultaController(self.conn).listar_multas_por_id(id_usuario)
 
     def listar_multas_pendentes(self, id_usuario):
         multa_controller = MultaController()
