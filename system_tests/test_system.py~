@@ -52,7 +52,7 @@ class SystemTest(TestCase):
         result = self.run_test('2.in', '2.out')
         self.assertTrue(result)
 
-    def test_logar_cliente_e_admnistrador(self):
+    def test_logar_administrador_e_cliente(self):
         result = self.run_test('3.in', '3.out')
         self.assertTrue(result)
     
