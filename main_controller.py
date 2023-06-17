@@ -1,3 +1,5 @@
+import os
+import sys
 from time import sleep
 from interface import InterfacePrints
 from user_controller import UserController
@@ -8,7 +10,32 @@ class MainController:
     def __init__(self, conn):
         self.conn = conn
     
-    def run(self):
+    def run(self, from_file=False, file_path=None, to_file=False, outfile_path=None):
+        
+        print("from_file", from_file)
+        print("file_path", file_path)
+        print("to_file", to_file)
+        print("outfile_path", outfile_path)
+        
+        if from_file:
+            os.environ['DO_CLEAR'] = "False"
+            sys.stdin = open(file_path)
+
+        if to_file:
+            os.environ['DO_CLEAR'] = "False"
+            sys.stdout = open(outfile_path, 'w')
+        
+
+        if from_file:
+            sys.stdin.close()
+            sys.stdin = sys.__stdin__
+
+        if to_file:
+            sys.stdout.close()
+            sys.stdout = sys.__stdout__
+            
+        
+        
         InterfacePrints.print_menu()
         try:
             choice = int(input())
