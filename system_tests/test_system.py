@@ -2,14 +2,21 @@ import filecmp
 import os
 from shutil import rmtree
 from unittest import TestCase
-from main import criar_conexao
+from main import criar_conexao, criar_tabelas
 
 from main_controller import MainController
 
 class SystemTest(TestCase):
     
     def setUp(self):
+        
         self.current_dir = os.path.dirname(__file__)
+        if os.path.exists(self.current_dir + "/../databaseTest.db"):
+            print("removendo databaseTest.db")
+            os.remove(self.current_dir + "/../databaseTest.db")
+        file = open(self.current_dir + "/../databaseTest.db", "w")
+        file.close()
+        
         self.inputs = os.path.join(self.current_dir, 'inputs')
         self.outputs = os.path.join(self.current_dir, 'outputs')
         self.temp = os.path.join(self.current_dir, 'temp')
@@ -19,7 +26,9 @@ class SystemTest(TestCase):
 
         
     def run_test(self, in_file, out_file):
-        main_controller = MainController(criar_conexao(self.current_dir + "/../biblioteca.db"))
+        conn = criar_conexao(self.current_dir + "/../databaseTest.db")
+        criar_tabelas(conn)        
+        main_controller = MainController(conn)
         main_controller.run(
             from_file=True,
             file_path=os.path.join(self.inputs, in_file),
