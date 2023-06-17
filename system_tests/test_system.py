@@ -24,13 +24,14 @@ class SystemTest(TestCase):
         if os.path.exists(self.temp):
             rmtree(self.temp)
         os.mkdir(self.temp)
+        
+        conn = criar_conexao(self.current_dir + "/../databaseTest.db")
+        criar_tabelas(conn)        
+        self.main_controller = MainController(conn)
 
         
     def run_test(self, in_file, out_file):
-        conn = criar_conexao(self.current_dir + "/../databaseTest.db")
-        criar_tabelas(conn)        
-        main_controller = MainController(conn)
-        main_controller.run(
+        self.main_controller.run(
             from_file=True,
             file_path=os.path.join(self.inputs, in_file),
             to_file=True,
@@ -54,5 +55,13 @@ class SystemTest(TestCase):
 
     def test_logar_cliente_e_admnistrador(self):
         result = self.run_test('3.in', '3.out')
+        self.assertTrue(result)
+        
+    def test_logar_admin_e_editar_livro(self):
+        result = self.run_test('4.in', '4.out')
+        self.assertTrue(result)
+        
+    def test_logar_admin_e_editar_usuario(self):
+        result = self.run_test('5.in', '5.out')
         self.assertTrue(result)
     
