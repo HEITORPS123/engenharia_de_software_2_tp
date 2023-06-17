@@ -12,29 +12,13 @@ class MainController:
     
     def run(self, from_file=False, file_path=None, to_file=False, outfile_path=None):
         
-        print("from_file", from_file)
-        print("file_path", file_path)
-        print("to_file", to_file)
-        print("outfile_path", outfile_path)
-        
         if from_file:
             os.environ['DO_CLEAR'] = "False"
             sys.stdin = open(file_path)
 
         if to_file:
             os.environ['DO_CLEAR'] = "False"
-            sys.stdout = open(outfile_path, 'w')
-        
-
-        if from_file:
-            sys.stdin.close()
-            sys.stdin = sys.__stdin__
-
-        if to_file:
-            sys.stdout.close()
-            sys.stdout = sys.__stdout__
-            
-        
+            sys.stdout = open(outfile_path, 'w')        
         
         InterfacePrints.print_menu()
         try:
@@ -50,6 +34,14 @@ class MainController:
         }
 
         self._run_auxiliar(choice, options)
+        
+        if from_file:
+            sys.stdin.close()
+            sys.stdin = sys.__stdin__
+
+        if to_file:
+            sys.stdout.close()
+            sys.stdout = sys.__stdout__
 
     def _run_auxiliar(self, choice, options):
         if choice in options.keys():
