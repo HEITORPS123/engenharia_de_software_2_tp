@@ -20,4 +20,5 @@ jobs:
           python-version: 3.x
 
       - name: Run unittests
-        run: python -m unittest tests/*
+        # Forma mais genérica de rodar a suite de testes
+        run: python3 -m unittest discover -s tests -p "*_test.py"
