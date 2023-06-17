@@ -7,15 +7,16 @@ from main import criar_conexao, criar_tabelas
 from main_controller import MainController
 
 class SystemTest(TestCase):
-    
-    def setUp(self):
+
+    @classmethod
+    def setUpClass(self):
         
         self.current_dir = os.path.dirname(__file__)
-        if os.path.exists(self.current_dir + "/../databaseTest.db"):
-            print("removendo databaseTest.db")
-            os.remove(self.current_dir + "/../databaseTest.db")
-        file = open(self.current_dir + "/../databaseTest.db", "w")
-        file.close()
+        # if os.path.exists(self.current_dir + "/../databaseTest.db"):
+        #     print("removendo databaseTest.db")
+        #     os.remove(self.current_dir + "/../databaseTest.db")
+        # file = open(self.current_dir + "/../databaseTest.db", "w")
+        # file.close()
         
         self.inputs = os.path.join(self.current_dir, 'inputs')
         self.outputs = os.path.join(self.current_dir, 'outputs')
@@ -43,6 +44,10 @@ class SystemTest(TestCase):
 
         return result
     
-    def test_logar_usuario_e_sair(self):
+    def test_alugar_e_devolver_livro(self):
         result = self.run_test('1.in', '1.out')
         self.assertTrue(result)
+        
+    # def test_criar_livro_e_alugar_livro(self):
+    #     result = self.run_test('2.in', '2.out')
+    #     self.assertTrue(result)

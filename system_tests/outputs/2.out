@@ -1,0 +1,101 @@
+=======================
+Bem-vindo!
+
+1 - Cliente
+2 - Administrador
+0 - Sair
+=======================
+Opcao: Login: Senha: =======================
+Administrador
+
+1 - Alterar Livros
+2 - Alterar Usuarios
+3 - Listar Usuarios
+4 - Listar Livros
+5 - Registrar devolucao
+6 - Quitacao de multa
+0 - Voltar
+=======================
+Opcao: =======================
+1 - Adicionar
+2 - Remover
+3 - Editar
+0 - Voltar
+=======================
+Opcao: Nome: Descricao: =======================
+Administrador
+
+1 - Alterar Livros
+2 - Alterar Usuarios
+3 - Listar Usuarios
+4 - Listar Livros
+5 - Registrar devolucao
+6 - Quitacao de multa
+0 - Voltar
+=======================
+Opcao: Saindo...
+=======================
+Bem-vindo!
+
+1 - Cliente
+2 - Administrador
+0 - Sair
+=======================
+Opcao: Login: Senha: Login efetuado com sucesso.
+=======================
+Cliente
+
+1 - Alugar livros
+2 - Pesquisar livros
+3 - Informacoes do livro
+4 - Livros alugados
+5 - Renovar aluguel
+6 - Consultar multas pendentes
+0 - Voltar
+=======================
+Opcao: Nome do livro: [(1, 'livroTeste', 'testando'), (2, 'livroTeste', 'testando')]
+Aperte alguma tecla para continuar...
+=======================
+Cliente
+
+1 - Alugar livros
+2 - Pesquisar livros
+3 - Informacoes do livro
+4 - Livros alugados
+5 - Renovar aluguel
+6 - Consultar multas pendentes
+0 - Voltar
+=======================
+Opcao: Id do livro: Aluguel realizado com sucesso!
+=======================
+Cliente
+
+1 - Alugar livros
+2 - Pesquisar livros
+3 - Informacoes do livro
+4 - Livros alugados
+5 - Renovar aluguel
+6 - Consultar multas pendentes
+0 - Voltar
+=======================
+Opcao: Opcao invalida.
+=======================
+Cliente
+
+1 - Alugar livros
+2 - Pesquisar livros
+3 - Informacoes do livro
+4 - Livros alugados
+5 - Renovar aluguel
+6 - Consultar multas pendentes
+0 - Voltar
+=======================
+Opcao: Saindo...
+=======================
+Bem-vindo!
+
+1 - Cliente
+2 - Administrador
+0 - Sair
+=======================
+Opcao: Saindo...

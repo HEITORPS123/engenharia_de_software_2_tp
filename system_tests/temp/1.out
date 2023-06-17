@@ -5,7 +5,35 @@ Bem-vindo!
 2 - Administrador
 0 - Sair
 =======================
-Opcao: Login: Senha: Credenciais invalidas.
+Opcao: Login: Senha: =======================
+Administrador
+
+1 - Alterar Livros
+2 - Alterar Usuarios
+3 - Listar Usuarios
+4 - Listar Livros
+5 - Registrar devolucao
+6 - Quitacao de multa
+0 - Voltar
+=======================
+Opcao: =======================
+1 - Adicionar
+2 - Remover
+3 - Editar
+0 - Voltar
+=======================
+Opcao: Login: Senha: Permissao: =======================
+Administrador
+
+1 - Alterar Livros
+2 - Alterar Usuarios
+3 - Listar Usuarios
+4 - Listar Livros
+5 - Registrar devolucao
+6 - Quitacao de multa
+0 - Voltar
+=======================
+Opcao: Saindo...
 =======================
 Bem-vindo!
 
