@@ -49,16 +49,5 @@ class TestLivrosController(unittest.TestCase):
         self.assertEqual(livros_controller.listar_livros(), retorno)
         mock_conn.cursor.return_value.execute.assert_called_once_with(sql)
 
-    def test_get_livro_info(self):
-        mock_conn = MagicMock()
-        sql = "SELECT * FROM livros"
-        retorno = [('A culpa é das estrelas', 'Romance', 1)]
-        mock_conn.cursor.return_value.fetchall.return_value = retorno
-        livros_controller = LivrosController(mock_conn)
-        
-        self.assertEqual(livros_controller.listar_livros(), retorno)
-        mock_conn.cursor.return_value.execute.assert_called_once_with(sql)
-
-
 if __name__ == '__main__':
     unittest.main()

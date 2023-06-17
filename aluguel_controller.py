@@ -16,7 +16,7 @@ class AlugueisController:
         aux = cur.execute("SELECT * FROM alugueis WHERE id_usuario = ? AND id_livro = ?", (aluguel[0], aluguel[1]))
         if(aux.fetchall() != []):
             print("O usuário já está com esse livro alugado")
-            return
+            return -1
         
 
         sql = ''' INSERT INTO alugueis(data,vencimento,status,id_usuario,id_livro)
@@ -37,6 +37,7 @@ class AlugueisController:
         aluguel = cur.fetchone()
         
         self.checar_se_aluguel_vencido(aluguel, id_usuario)
+        InterfacePrints.waiting_key_msg()
         
         sql = ''' UPDATE alugueis
               SET status = ? 
@@ -52,7 +53,6 @@ class AlugueisController:
         
         if data_atual > data_vencimento:
             print("Aluguel vencido!")
-            InterfacePrints.waiting_key_msg()
             valorMulta = (data_atual - data_vencimento).days * 2
             MultaController(self.conn).criar_multa((id_usuario, valorMulta, 'aberta'))
             return True
@@ -67,7 +67,6 @@ class AlugueisController:
         cur.execute(sql, (novo_vencimento, id_aluguel))
         self.conn.commit()
         print("Aluguel renovado com sucesso")
-        InterfacePrints.waiting_key_msg()
         return 0
     
     def listar_alugueis_do_usuario(self, id_usuario):
@@ -77,7 +76,6 @@ class AlugueisController:
         alugueis = cur.fetchall()
         for aluguel in alugueis:
             print(aluguel)
-        InterfacePrints.waiting_key_msg()
         return alugueis
     
     def listar_aluguel_por_id(self, id_aluguel):

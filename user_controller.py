@@ -82,6 +82,7 @@ class UserController:
     def op_livros_alugados(self):
         id_usuario = self.user[0]
         AlugueisController(self.conn).listar_alugueis_do_usuario(id_usuario)
+        InterfacePrints.waiting_key_msg()
         
     def op_renovar_aluguel(self):
         id_aluguel = input("Id do aluguel: ")
@@ -90,10 +91,12 @@ class UserController:
     def op_listar_multas_pendentes(self):
         id_usuario = self.user[0]
         MultaController(self.conn).listar_multas_por_id(id_usuario)
+        InterfacePrints.waiting_key_msg()
 
     def listar_multas_pendentes(self, id_usuario):
         multa_controller = MultaController()
         multas = multa_controller.listar_multas_por_id(id_usuario, self.conn)
+        InterfacePrints.waiting_key_msg()
         multas_pendentes = list()
         for multa in multas:
             if multa[3] == 'PENDENTE':
@@ -107,3 +110,4 @@ class UserController:
         data_vencimento = datetime.datetime.strptime(aluguel[2], "%Y-%m-%d %H:%M:%S")
         nova_data = data_vencimento + timedelta(days=7)
         aluguel_controller.renovar_aluguel(id_aluguel, nova_data)
+        InterfacePrints.waiting_key_msg()

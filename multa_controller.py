@@ -21,7 +21,6 @@ class MultaController:
         multas = cur.fetchall()
         for multa in multas:
             print(multa)
-        InterfacePrints.waiting_key_msg()
         self.conn.commit()
         return multas
     
@@ -33,7 +32,6 @@ class MultaController:
 
         cur.execute(sql, ('paga', id_multa))
         print('Multa paga com sucesso!')
-        InterfacePrints.waiting_key_msg()
         self.conn.commit()
         return 0
     

@@ -57,6 +57,7 @@ class AdmController:
         elif escolha == 6:
             id_multa = input("Id da multa: ")
             self.multa_controller.resolver_multa(id_multa)
+            InterfacePrints.waiting_key_msg()
 
         elif escolha == 0:
             InterfacePrints.print_exiting_msg()
