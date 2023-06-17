@@ -44,10 +44,6 @@ class SystemTest(TestCase):
 
         return result
     
-    def test_alugar_e_devolver_livro(self):
+    def test_logar_cliente_e_pesquisar_livro(self):
         result = self.run_test('1.in', '1.out')
         self.assertTrue(result)
-        
-    # def test_criar_livro_e_alugar_livro(self):
-    #     result = self.run_test('2.in', '2.out')
-    #     self.assertTrue(result)
