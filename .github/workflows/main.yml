@@ -23,6 +23,6 @@ jobs:
         # Forma mais genérica de rodar a suite de testes
         run: python3 -m unittest discover -s tests -p "*_test.py"
 
-      - name: Run Integration Tests 
+      - name: Run e2e Tests 
         run: python3 -m unittest system_tests/test_system.py
 
