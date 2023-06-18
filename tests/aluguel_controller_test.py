@@ -1,12 +1,14 @@
 import unittest
 import datetime
+from unittest.mock import patch
 from unittest.mock import MagicMock
 import sys
 sys.path.append('..')
 from aluguel_controller import AlugueisController
 
 class TestAlugueisController(unittest.TestCase):
-    def test_criar_aluguel(self):
+    @patch('builtins.print')
+    def test_criar_aluguel(self, mock_output):
         mock_conn = MagicMock()
         sql = ''' INSERT INTO alugueis(data,vencimento,status,id_usuario,id_livro)
               VALUES(datetime('now', 'localtime'),datetime('now', '+7 day', 'localtime'),?,?,?) '''
@@ -19,21 +21,24 @@ class TestAlugueisController(unittest.TestCase):
         mock_conn.commit.assert_called_once_with()
         #mock_conn.cursor.return_value.execute.assert_called_once_with(sql, aluguel_exemplo)
 
-    def test_checar_se_aluguel_vencido_true(self):
+    @patch('builtins.print')
+    def test_checar_se_aluguel_vencido_true(self, mock_output):
         mock_conn = MagicMock()
         aluguel_exemplo = (1, 1, '2023-02-12 16:30:00')
         alugueis_controller = AlugueisController(mock_conn)
         
         self.assertEqual(alugueis_controller.checar_se_aluguel_vencido(aluguel_exemplo, aluguel_exemplo), True)
 
-    def test_checar_se_aluguel_vencido_false(self):
+    @patch('builtins.print')
+    def test_checar_se_aluguel_vencido_false(self, mock_output):
         data_exemplo = datetime.datetime.now() + datetime.timedelta(days=7)
         aluguel_exemplo = (1, 1, data_exemplo.strftime("%Y-%m-%d %H:%M:%S"))
         alugueis_controller = AlugueisController([])
         
         self.assertEqual(alugueis_controller.checar_se_aluguel_vencido(aluguel_exemplo, aluguel_exemplo), False)
-
-    def test_renovar_aluguel(self):
+    
+    @patch('builtins.print')
+    def test_renovar_aluguel(self, mock_output):
         mock_conn = MagicMock()
         sql = ''' UPDATE alugueis
               SET vencimento = ? 
@@ -47,7 +52,8 @@ class TestAlugueisController(unittest.TestCase):
         mock_conn.commit.assert_called_once_with()
         mock_conn.cursor.return_value.execute.assert_called_once_with(sql, (novo_vencimento, id_aluguel))
 
-    def test_listar_alugueis_do_usuario(self):
+    @patch('builtins.print')
+    def test_listar_alugueis_do_usuario(self, mock_output):
         mock_conn = MagicMock()
         sql = "SELECT * FROM alugueis WHERE id_usuario=?"
         retorno = [(1, 1, '2023-02-12 16:30:00')]
@@ -66,6 +72,3 @@ class TestAlugueisController(unittest.TestCase):
         
         self.assertEqual(alugueis_controller.listar_aluguel_por_id(1), retorno[0])
         mock_conn.cursor.return_value.execute.assert_called_once_with(sql, (1))
-
-if __name__ == '__main__':
-    unittest.main()

@@ -48,6 +48,3 @@ class TestLivrosController(unittest.TestCase):
         
         self.assertEqual(livros_controller.listar_livros(), retorno)
         mock_conn.cursor.return_value.execute.assert_called_once_with(sql)
-
-if __name__ == '__main__':
-    unittest.main()

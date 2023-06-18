@@ -23,6 +23,3 @@ class TestAdmController(unittest.TestCase):
         
         self.assertEqual(adm_controller.excluir_usuario(1, mock_conn), 0)
         mock_conn.cursor.return_value.execute.assert_called_once_with(sql, (1,))
-
-if __name__ == '__main__':
-    unittest.main()
