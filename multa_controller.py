@@ -25,13 +25,16 @@ class MultaController:
         return multas
     
     def resolver_multa(self, id_multa):
-        sql = ''' UPDATE multas
-              SET status = ? 
-              WHERE id = ? '''
+        sql = ''' UPDATE multas SET status = ? WHERE id = ? '''
         cur = self.conn.cursor()
 
-        cur.execute(sql, ('paga', id_multa))
-        print('Multa paga com sucesso!')
-        self.conn.commit()
-        return 0
+        cur.execute("SELECT * FROM multas WHERE id = ?", (id_multa,))
+        row = cur.fetchone()
+        if row is None:
+            print('Multa não encontrada!')
+            return -1
     
+        cur.execute(sql, ('paga', id_multa))    
+        print('Multa paga com sucesso!')    
+        self.conn.commit()    
+        return 0
