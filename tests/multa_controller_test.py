@@ -1,6 +1,7 @@
 import unittest
 from unittest.mock import patch
 from unittest.mock import MagicMock
+from unittest.mock import call
 import sys
 sys.path.append('..')
 from multa_controller import MultaController
@@ -32,15 +33,17 @@ class TestMultaController(unittest.TestCase):
         mock_conn.commit.assert_called_once_with()
         mock_conn.cursor.return_value.execute.assert_called_once_with(sql, (id_multa, ))
 
-    @patch('builtins.print')
-    def test_resolver_multa(self, mock_output):
-        mock_conn = MagicMock()
-        sql = ''' UPDATE multas
-              SET status = ? 
-              WHERE id = ? '''
-        id_multa = 1
-        multa_controller = MultaController(mock_conn)
-        
-        self.assertEqual(multa_controller.resolver_multa(id_multa), 0)
-        mock_conn.commit.assert_called_once_with()
-        mock_conn.cursor.return_value.execute.assert_called_once_with(sql, ('paga', id_multa))
+    @patch('builtins.print')    
+    def test_resolver_multa(self, mock_output):    
+        mock_conn = MagicMock()    
+        sql = ''' UPDATE multas SET status = ? WHERE id = ? '''
+        id_multa = 1    
+        multa_controller = MultaController(mock_conn)    
+
+        mock_conn.cursor.return_value.fetchone.return_value = ('some', 'row')
+        self.assertEqual(multa_controller.resolver_multa(id_multa), 0) 
+        mock_conn.commit.assert_called_once_with()    
+        mock_conn.cursor.return_value.execute.assert_has_calls([
+            call("SELECT * FROM multas WHERE id = ?", (id_multa,)),
+            call(sql, ('paga', id_multa))
+        ])
