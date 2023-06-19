@@ -51,8 +51,7 @@ class AdmController:
 
         elif escolha == 5:
             id_aluguel = input("Id do aluguel: ")
-            id_usuario = input("Id do usuario: ")
-            self.alugueis_controller.resolver_aluguel(id_aluguel, id_usuario)
+            self.alugueis_controller.resolver_aluguel(id_aluguel)
 
         elif escolha == 6:
             id_multa = input("Id da multa: ")
@@ -145,8 +144,13 @@ class AdmController:
         cur.execute("SELECT * FROM usuarios")
 
         usuarios = cur.fetchall()
+        InterfacePrints._clear()
         for usuario in usuarios:
-            print(usuario)
+            print('Id: ', usuario[0])
+            print('Usuario: ', usuario[1])
+            print('Senha: ', usuario[2])
+            print('Permissao: ', usuario[3])
+            print('=======================')
         InterfacePrints.waiting_key_msg()
         return usuarios
 
@@ -155,8 +159,13 @@ class AdmController:
         cur.execute("SELECT * FROM livros")
 
         livros = cur.fetchall()
+        InterfacePrints._clear()
         for livro in livros:
-            print(livro)
+            print('Id: ', livro[0])
+            print('Nome: ', livro[1])
+            print('Descricao:: ', livro[2])
+            print('=======================')
+            
         InterfacePrints.waiting_key_msg()
         return livros
 

@@ -74,6 +74,7 @@ class UserController:
     def op_pesquisar_livro(self):
         nome = input("Nome do livro: ")
         LivrosController(self.conn).pesquisar_livro(nome)
+        InterfacePrints.waiting_key_msg()
     
     def op_informacoes_livro(self):
         nome = input("Nome do livro: ")

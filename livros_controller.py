@@ -47,7 +47,6 @@ class LivrosController:
             InterfacePrints.waiting_key_msg()
             return
         print(rows)
-        InterfacePrints.waiting_key_msg()
         return rows
 
     def get_livro_info(self, nome_livro):
@@ -60,7 +59,11 @@ class LivrosController:
         nome = livro[0][1]
         descricao = livro[0][2]
 
+        print()
+        print('----Informações do livro----')
         print(f"Id: {id}")
         print(f"Nome: {nome}")
         print(f"Descrição: {descricao}")
+        print()
+        InterfacePrints.waiting_key_msg()
         return (id, nome, descricao)

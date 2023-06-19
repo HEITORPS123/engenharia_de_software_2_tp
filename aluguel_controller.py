@@ -14,9 +14,13 @@ class AlugueisController:
         # aluguel[1] -> id_user
         # aluguel[2] -> id_livro
         aux = cur.execute("SELECT * FROM alugueis WHERE id_usuario = ? AND id_livro = ?", (aluguel[0], aluguel[1]))
-        if(aux.fetchall() != []):
-            print("O usuário já está com esse livro alugado")
-            return -1
+        auxInfo = aux.fetchall()
+        if(auxInfo == None):
+            ultimoAluguel = auxInfo[-1] # Ultimo aluguel feito pelo usuário
+            if(ultimoAluguel[3] == 'ativo'):
+                print("O usuário já está com esse livro alugado")
+                InterfacePrints.waiting_key_msg()
+                return -1
         
 
         sql = ''' INSERT INTO alugueis(data,vencimento,status,id_usuario,id_livro)
@@ -26,17 +30,20 @@ class AlugueisController:
         self.conn.commit()
         
         print("Aluguel realizado com sucesso!")
-        sleep(1)
+        InterfacePrints.waiting_key_msg()
         
         return cur.lastrowid
     
-    def resolver_aluguel(self, id_aluguel, id_usuario):
+    def resolver_aluguel(self, id_aluguel):
         cur = self.conn.cursor()
         
         cur.execute("SELECT * FROM alugueis WHERE id = ?", (id_aluguel))
         aluguel = cur.fetchone()
-        
-        self.checar_se_aluguel_vencido(aluguel, id_usuario)
+        if(aluguel == None):
+            print("Aluguel não encontrado")
+            InterfacePrints.waiting_key_msg()
+            return -1
+        self.checar_se_aluguel_vencido(aluguel, aluguel[4])
         InterfacePrints.waiting_key_msg()
         
         sql = ''' UPDATE alugueis
@@ -45,6 +52,8 @@ class AlugueisController:
 
         cur.execute(sql, ('devolvido', id_aluguel))
         self.conn.commit()
+        print('Livro devolvido com sucesso!')
+        
         return 0
     
     def checar_se_aluguel_vencido(self, aluguel, id_usuario):
@@ -74,8 +83,15 @@ class AlugueisController:
         cur.execute("SELECT * FROM alugueis WHERE id_usuario=?", (id_usuario,))
 
         alugueis = cur.fetchall()
+        InterfacePrints._clear()
         for aluguel in alugueis:
-            print(aluguel)
+            print('Id: ', aluguel[0])
+            print('Data do aluguel: ', aluguel[1])
+            print('Data de vencimento: ', aluguel[2])
+            print('Status: ', aluguel[3])
+            print('Id do usuário: ', aluguel[4])
+            print('Id do livro: ', aluguel[5])
+            print('--------------------------')
         return alugueis
     
     def listar_aluguel_por_id(self, id_aluguel):
