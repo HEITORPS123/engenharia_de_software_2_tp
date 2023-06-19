@@ -52,6 +52,7 @@ class AdmController:
         elif escolha == 5:
             id_aluguel = input("Id do aluguel: ")
             self.alugueis_controller.resolver_aluguel(id_aluguel)
+            InterfacePrints.waiting_key_msg()
 
         elif escolha == 6:
             id_multa = input("Id da multa: ")

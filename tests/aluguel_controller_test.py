@@ -12,7 +12,7 @@ class TestAlugueisController(unittest.TestCase):
         mock_conn = MagicMock()
         sql = ''' INSERT INTO alugueis(data,vencimento,status,id_usuario,id_livro)
               VALUES(datetime('now', 'localtime'),datetime('now', '+7 day', 'localtime'),?,?,?) '''
-        aluguel_exemplo = ('', '', '')
+        aluguel_exemplo = (1, '2023-02-12 16:30:00', '2023-02-19 16:30:00', 'pendente', 1, 1)
         mock_conn.cursor.return_value.lastrowid = 1
         mock_conn.cursor.return_value.execute.return_value.fetchall.return_value = []
         alugueis_controller = AlugueisController(mock_conn)
@@ -24,10 +24,10 @@ class TestAlugueisController(unittest.TestCase):
     @patch('builtins.print')
     def test_checar_se_aluguel_vencido_true(self, mock_output):
         mock_conn = MagicMock()
-        aluguel_exemplo = (1, 1, '2023-02-12 16:30:00')
+        aluguel_exemplo = (1, '2023-02-12 16:30:00', '2023-02-19 16:30:00', 'pendente', 1, 1)
         alugueis_controller = AlugueisController(mock_conn)
         
-        self.assertEqual(alugueis_controller.checar_se_aluguel_vencido(aluguel_exemplo, aluguel_exemplo), True)
+        self.assertEqual(alugueis_controller.checar_se_aluguel_vencido(aluguel_exemplo, 1), True)
 
     @patch('builtins.print')
     def test_checar_se_aluguel_vencido_false(self, mock_output):
@@ -35,7 +35,7 @@ class TestAlugueisController(unittest.TestCase):
         aluguel_exemplo = (1, 1, data_exemplo.strftime("%Y-%m-%d %H:%M:%S"))
         alugueis_controller = AlugueisController([])
         
-        self.assertEqual(alugueis_controller.checar_se_aluguel_vencido(aluguel_exemplo, aluguel_exemplo), False)
+        self.assertEqual(alugueis_controller.checar_se_aluguel_vencido(aluguel_exemplo, 1), False)
     
     @patch('builtins.print')
     def test_renovar_aluguel(self, mock_output):
@@ -56,7 +56,7 @@ class TestAlugueisController(unittest.TestCase):
     def test_listar_alugueis_do_usuario(self, mock_output):
         mock_conn = MagicMock()
         sql = "SELECT * FROM alugueis WHERE id_usuario=?"
-        retorno = [(1, 1, '2023-02-12 16:30:00')]
+        retorno = [(1, '2023-02-12 16:30:00', '2023-02-19 16:30:00', 'pendente', 1, 1)]
         mock_conn.cursor.return_value.fetchall.return_value = retorno
         alugueis_controller = AlugueisController(mock_conn)
         
@@ -66,7 +66,7 @@ class TestAlugueisController(unittest.TestCase):
     def test_listar_aluguel_por_id(self):
         mock_conn = MagicMock()
         sql = "SELECT * FROM alugueis WHERE id=?"
-        retorno = [(1, 1, '2023-02-12 16:30:00', '2023-02-19 16:30:00', 1, 1)]
+        retorno = [(1, '2023-02-12 16:30:00', '2023-02-19 16:30:00', 'pendente', 1, 1)]
         mock_conn.cursor.return_value.fetchall.return_value = retorno
         alugueis_controller = AlugueisController(mock_conn)
         

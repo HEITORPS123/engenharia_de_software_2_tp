@@ -30,7 +30,6 @@ class AlugueisController:
         self.conn.commit()
         
         print("Aluguel realizado com sucesso!")
-        InterfacePrints.waiting_key_msg()
         
         return cur.lastrowid
     
@@ -44,7 +43,6 @@ class AlugueisController:
             InterfacePrints.waiting_key_msg()
             return -1
         self.checar_se_aluguel_vencido(aluguel, aluguel[4])
-        InterfacePrints.waiting_key_msg()
         
         sql = ''' UPDATE alugueis
               SET status = ? 

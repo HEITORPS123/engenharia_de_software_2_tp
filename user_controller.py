@@ -70,6 +70,7 @@ class UserController:
     def op_alugar_livro(self):
         id_livro = input("Id do livro: ")
         AlugueisController(self.conn).criar_aluguel((self.user[0], id_livro))
+        InterfacePrints.waiting_key_msg()
 
     def op_pesquisar_livro(self):
         nome = input("Nome do livro: ")
