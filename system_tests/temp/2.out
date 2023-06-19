@@ -5,23 +5,35 @@ Bem-vindo!
 2 - Administrador
 0 - Sair
 =======================
-Opcao: Login: Senha: Credenciais invalidas.
-=======================
-Bem-vindo!
+Opcao: Login: Senha: =======================
+Administrador
 
-1 - Cliente
-2 - Administrador
-0 - Sair
+1 - Alterar Livros
+2 - Alterar Usuarios
+3 - Listar Usuarios
+4 - Listar Livros
+5 - Registrar devolucao
+6 - Quitacao de multa
+0 - Voltar
 =======================
-Opcao: Opcao invalida.
+Opcao: Id:  1
+Usuario:  teste
+Senha:  teste
+Permissao:  1
 =======================
-Bem-vindo!
+Aperte alguma tecla para continuar...
+=======================
+Administrador
 
-1 - Cliente
-2 - Administrador
-0 - Sair
+1 - Alterar Livros
+2 - Alterar Usuarios
+3 - Listar Usuarios
+4 - Listar Livros
+5 - Registrar devolucao
+6 - Quitacao de multa
+0 - Voltar
 =======================
-Opcao: Opcao invalida.
+Opcao: Saindo...
 =======================
 Bem-vindo!
 
