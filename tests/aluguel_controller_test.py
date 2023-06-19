@@ -66,7 +66,7 @@ class TestAlugueisController(unittest.TestCase):
     def test_listar_aluguel_por_id(self):
         mock_conn = MagicMock()
         sql = "SELECT * FROM alugueis WHERE id=?"
-        retorno = [(1, 1, '2023-02-12 16:30:00')]
+        retorno = [(1, 1, '2023-02-12 16:30:00', '2023-02-19 16:30:00', 1, 1)]
         mock_conn.cursor.return_value.fetchall.return_value = retorno
         alugueis_controller = AlugueisController(mock_conn)
         
